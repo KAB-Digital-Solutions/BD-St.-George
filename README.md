@@ -115,6 +115,16 @@ http://localhost:8080/swagger-ui/index.html
 
 No login is required to open Swagger. Use it to explore and test endpoints.
 
+**Using your token in Swagger:**
+
+1. Call `POST /api/auth/login` and copy the `token` from the response.
+2. At the **top right** of the Swagger page, click the green **Authorize** button (lock icon).
+3. In the `bearerAuth` box, paste **only the token** (do not type `Bearer ` — Swagger adds that).
+4. Click **Authorize**, then **Close**.
+5. Protected endpoints (e.g. `GET /api/auth/me`) will now send the token automatically.
+
+If you do not see **Authorize**, restart the backend after pulling the latest code (OpenAPI security must be configured).
+
 ---
 
 ## Docker image for the backend
