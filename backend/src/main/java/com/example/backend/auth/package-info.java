@@ -1,5 +1,5 @@
 /**
- * Authentication module — login, JWT, user entity, and Spring Security.
- * Future admin user-management endpoints will live under {@code auth.admin}.
+ * Authentication module — login, JWT, user accounts, and Spring Security.
+ * Admin user management: {@code /api/admin/users} (ADMIN role only).
  */
 package com.example.backend.auth;

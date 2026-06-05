@@ -190,6 +190,23 @@ Another app is using 8080. Stop it, or change `server.port` in `backend/src/main
 - User accounts table with roles: Admin, Recorder, Viewer
 - JWT login: `POST /api/auth/login`
 - Current user profile: `GET /api/auth/me`
+- **Admin user management** (ADMIN token required):
+  - `GET /api/admin/users` — list all users
+  - `GET /api/admin/users/{id}` — get one user
+  - `POST /api/admin/users` — create Recorder/Viewer/Admin account
+  - `PUT /api/admin/users/{id}` — update name, role, or active status
+  - `PUT /api/admin/users/{id}/password` — reset password
+
+Example — create a Recorder for a church clerk (after Authorize as admin):
+
+```json
+{
+  "username": "clerk1",
+  "password": "SecurePass123!",
+  "fullName": "Church Clerk",
+  "role": "RECORDER"
+}
+```
 
 ## What comes next
 

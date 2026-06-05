@@ -9,11 +9,12 @@ Aligned with requirements document Section 8–9.
 - [x] `.env.example` for secrets
 - [x] README quick start
 
-## Phase 1 — Auth (Step 1) ✅ Done
+## Phase 1 — Auth ✅ Done
 
 - [x] Spring Boot 4 / Java 21, Flyway V1–V2 (`users` + seed admin)
 - [x] JWT login (`POST /api/auth/login`) + `GET /api/auth/me`
 - [x] Spring Security (3 roles: ADMIN, RECORDER, VIEWER)
+- [x] Admin user management (`/api/admin/users`) in `auth/` module
 - [ ] Integration test with Testcontainers
 
 ## Phase 2 — Dynamic form engine (Next)
