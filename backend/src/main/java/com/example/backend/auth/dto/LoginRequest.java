@@ -1,4 +1,4 @@
-package com.example.backend.dto;
+package com.example.backend.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

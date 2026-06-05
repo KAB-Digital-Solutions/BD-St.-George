@@ -1,6 +1,6 @@
-package com.example.backend.entity;
+package com.example.backend.auth.entity;
 
-import com.example.backend.domain.UserRole;
+import com.example.backend.auth.domain.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 

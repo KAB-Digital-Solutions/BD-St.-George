@@ -25,12 +25,36 @@ Node.js and React will be needed later for the frontend.
 ```
 BD-St.-George/
 ├── backend/              ← Spring Boot API (Java)
-│   └── Dockerfile        ← Builds the backend image for Docker
+│   ├── Dockerfile        ← Builds the backend image for Docker
+│   └── src/main/java/com/example/backend/
+│       ├── auth/         ← Login, JWT, users (self-contained module)
+│       └── shared/       ← Cross-cutting: errors, health, OpenAPI
 ├── docker-compose.yml    ← Starts PostgreSQL (daily dev)
 ├── docker-compose.full.yml ← Full stack later (DB + API + React)
 ├── docs/                 ← Technical plans and schema notes
 └── .env.example          ← Copy to .env if you want custom passwords
 ```
+
+### Backend code layout (modular)
+
+Each feature gets its own package. Auth is the first module:
+
+```
+auth/
+  controller/   → REST endpoints (/api/auth/...)
+  service/      → Business logic
+  repository/   → Database access
+  entity/       → User table mapping
+  dto/          → Request/response shapes
+  security/     → JWT filter, user details
+  config/       → Security + JWT settings
+  domain/       → UserRole enum
+  util/         → JwtUtil
+```
+
+Future modules follow the same pattern, e.g. `formengine/`, `members/`, `clergy/`.
+
+`shared/` holds code used by every module (exception handler, health check, Swagger config).
 
 ---
 

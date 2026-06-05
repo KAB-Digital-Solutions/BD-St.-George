@@ -1,9 +1,9 @@
-package com.example.backend.controller;
+package com.example.backend.auth.controller;
 
-import com.example.backend.dto.LoginRequest;
-import com.example.backend.dto.LoginResponse;
-import com.example.backend.dto.UserResponse;
-import com.example.backend.service.AuthService;
+import com.example.backend.auth.dto.LoginRequest;
+import com.example.backend.auth.dto.LoginResponse;
+import com.example.backend.auth.dto.UserResponse;
+import com.example.backend.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @SecurityRequirements   // login is public — no JWT needed
+    @SecurityRequirements
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);

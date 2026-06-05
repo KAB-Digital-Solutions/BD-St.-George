@@ -1,12 +1,12 @@
-package com.example.backend.service;
+package com.example.backend.auth.service;
 
-import com.example.backend.dto.LoginRequest;
-import com.example.backend.dto.LoginResponse;
-import com.example.backend.entity.User;
-import com.example.backend.exception.ApiException;
-import com.example.backend.repository.UserRepository;
-import com.example.backend.security.ApplicationUserDetails;
-import com.example.backend.util.JwtUtil;
+import com.example.backend.auth.dto.LoginRequest;
+import com.example.backend.auth.dto.LoginResponse;
+import com.example.backend.auth.entity.User;
+import com.example.backend.auth.repository.UserRepository;
+import com.example.backend.auth.security.ApplicationUserDetails;
+import com.example.backend.auth.util.JwtUtil;
+import com.example.backend.shared.exception.ApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

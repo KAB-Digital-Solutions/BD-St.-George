@@ -1,6 +1,6 @@
-package com.example.backend.security;
+package com.example.backend.auth.security;
 
-import com.example.backend.entity.User;
+import com.example.backend.auth.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

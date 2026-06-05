@@ -1,6 +1,6 @@
-package com.example.backend.config;
+package com.example.backend.auth.config;
 
-import com.example.backend.security.JwtAuthFilter;
+import com.example.backend.auth.security.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.example.backend.exception;
+package com.example.backend.shared.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

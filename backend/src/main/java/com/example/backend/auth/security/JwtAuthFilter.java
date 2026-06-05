@@ -1,6 +1,6 @@
-package com.example.backend.security;
+package com.example.backend.auth.security;
 
-import com.example.backend.util.JwtUtil;
+import com.example.backend.auth.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

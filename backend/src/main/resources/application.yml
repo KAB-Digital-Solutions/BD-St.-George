@@ -28,4 +28,5 @@ springdoc:
 
 logging:
   level:
-    com.example.backend: INFO
+    com.example.backend.auth: INFO
+    com.example.backend.shared: INFO

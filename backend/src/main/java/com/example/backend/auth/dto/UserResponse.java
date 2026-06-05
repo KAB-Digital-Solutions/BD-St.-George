@@ -1,6 +1,6 @@
-package com.example.backend.dto;
+package com.example.backend.auth.dto;
 
-import com.example.backend.domain.UserRole;
+import com.example.backend.auth.domain.UserRole;
 import lombok.Builder;
 import lombok.Data;
 

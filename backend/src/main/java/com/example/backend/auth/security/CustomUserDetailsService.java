@@ -1,6 +1,6 @@
-package com.example.backend.security;
+package com.example.backend.auth.security;
 
-import com.example.backend.repository.UserRepository;
+import com.example.backend.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

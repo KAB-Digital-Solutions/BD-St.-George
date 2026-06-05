@@ -1,7 +1,7 @@
-package com.example.backend.util;
+package com.example.backend.auth.util;
 
-import com.example.backend.config.JwtProperties;
-import com.example.backend.domain.UserRole;
+import com.example.backend.auth.config.JwtProperties;
+import com.example.backend.auth.domain.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
