@@ -1,45 +1,22 @@
-version: '3.9'
-
+# Phase 0 — database only. Run backend locally from IDE/Maven.
+# Full stack (backend + frontend containers) comes in a later phase.
 services:
   db:
     image: postgres:16
+    container_name: saint-george-db
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-saint_george_db}
       POSTGRES_USER: ${POSTGRES_USER:-sgadmin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_in_production}
     ports:
-      - '5432:5432'
+      - '5433:5432'   # host 5433 — avoids conflict with local PostgreSQL on 5432
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-sgadmin} -d ${POSTGRES_DB:-saint_george_db}']
+      test: ['CMD-SHELL', 'pg_isready -U sgadmin -d saint_george_db']
       interval: 5s
       timeout: 5s
       retries: 10
 
-  backend:
-    build: ./backend
-    ports:
-      - '8080:8080'
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-saint_george_db}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-sgadmin}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-change_in_production}
-      JWT_SECRET: ${JWT_SECRET:-dev_only_change_in_production_use_32_char_minimum_secret}
-      FILE_UPLOAD_DIR: /app/uploads
-    volumes:
-      - uploads_data:/app/uploads
-    depends_on:
-      db:
-        condition: service_healthy
-
-  frontend:
-    build: ./frontend
-    ports:
-      - '3000:80'
-    depends_on:
-      - backend
-
 volumes:
   pg_data:
-  uploads_data:

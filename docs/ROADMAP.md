@@ -2,26 +2,25 @@
 
 Aligned with requirements document Section 8–9.
 
-## Phase 0 — Environment (Week 1) ✅ Started
+## Phase 0 — Environment (Week 1) ✅ Done
 
 - [x] Git repository structure
-- [x] `docker-compose.yml` (PostgreSQL + backend + frontend)
+- [x] `docker-compose.yml` (PostgreSQL on host port 5433)
 - [x] `.env.example` for secrets
-- [ ] Developer onboarding README (prerequisites)
+- [x] README quick start
 
-## Phase 1 — Backend foundation (Weeks 1–2) ✅ In progress
+## Phase 1 — Auth (Step 1) ✅ Done
 
-- [x] Spring Boot 3.3, Java 21, Flyway V1–V6
-- [x] All core + system tables
-- [x] Default admin user (change password at go-live)
+- [x] Spring Boot 4 / Java 21, Flyway V1–V2 (`users` + seed admin)
+- [x] JWT login (`POST /api/auth/login`) + `GET /api/auth/me`
+- [x] Spring Security (3 roles: ADMIN, RECORDER, VIEWER)
 - [ ] Integration test with Testcontainers
 
-## Phase 2 — Security (Week 2) ✅ In progress
+## Phase 2 — Dynamic form engine (Next)
 
-- [x] JWT login + filter chain
-- [x] Role-based `@PreAuthorize`
-- [x] Global exception handler
-- [ ] Password reset flow for admin
+- [ ] `form_field_definitions` + `record_custom_fields` tables
+- [ ] Admin form-field API
+- [ ] Seed baseline fields per module
 
 ## Phase 3 — Dynamic form engine (Week 3) ✅ In progress
 
