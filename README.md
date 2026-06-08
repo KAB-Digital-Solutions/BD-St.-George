@@ -52,7 +52,9 @@ auth/
   util/         → JwtUtil
 ```
 
-Future modules follow the same pattern, e.g. `formengine/`, `members/`, `clergy/`.
+`formengine/` — dynamic form engine (field definitions + custom values).
+
+Future modules: `members/`, `clergy/`, etc.
 
 `shared/` holds code used by every module (exception handler, health check, Swagger config).
 
@@ -208,9 +210,68 @@ Example — create a Recorder for a church clerk (after Authorize as admin):
 }
 ```
 
+## Dynamic form engine (formengine/)
+
+**Field definitions (configure forms):**
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/admin/form-fields/{moduleKey}` | Admin, Recorder, Viewer |
+| POST | `/api/admin/form-fields` | Admin only |
+| PUT | `/api/admin/form-fields/{id}` | Admin only |
+| PATCH | `/api/admin/form-fields/{moduleKey}/reorder` | Admin only |
+| PATCH | `/api/admin/form-fields/{id}/deactivate` | Admin only |
+| PATCH | `/api/admin/form-fields/{id}/reactivate` | Admin only |
+
+Valid `moduleKey` values: `members`, `clergy`, `baptisms`, `family_members`, `staff_ministers`, `office_staff`, `workers`, `emergency_contacts`, `parish_council`, `contributions`, `transfers`, `deceased`, `sunday_school`, `abnet_school`.
+
+**Custom field values (per record):**
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/{moduleKey}/{recordId}/custom-fields` | All logged-in users |
+| POST/PUT | `/api/{moduleKey}/{recordId}/custom-fields` | Admin, Recorder |
+
+Example — list member form fields:
+
+- `GET /api/admin/form-fields/modules` — shows all valid module keys
+- `GET /api/admin/form-fields/modules/members` — fields for the members module
+
+In Swagger, open **GET /api/admin/form-fields/modules/{moduleKey}**, click **Try it out**, set `moduleKey` to `members`, then **Execute**.
+
+Seeded fields include `baptismal_name`, `marital_status`, etc. for `members`.
+
+## Members registry (`members/`)
+
+Central member records with fixed columns plus dynamic `customFields` in one request.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/members?q=&page=0&size=20` | Admin, Recorder, Viewer |
+| GET | `/api/members/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/members` | Admin, Recorder |
+| PUT | `/api/members/{id}` | Admin, Recorder |
+| DELETE | `/api/members/{id}` | Admin, Recorder (soft deactivate) |
+
+Example — create a member with custom fields (after Authorize):
+
+```json
+{
+  "fullName": "Abebe Kebede",
+  "phone": "0911123456",
+  "kebele": "Kebele 05",
+  "customFields": {
+    "baptismal_name": "Gebre Meskel",
+    "marital_status": "ያገባ"
+  }
+}
+```
+
+Search `q` matches name, phone, kebele, or exact member ID. `clergy_id` is stored but not validated until the clergy module exists.
+
 ## What comes next
 
-- Dynamic form engine (admin-configurable fields without code changes)
-- Member registry, clergy, and other church modules — one at a time
+- Family members module — links people to a member household
+- Clergy and remaining church modules — one at a time
 
 Technical details: see the `docs/` folder.

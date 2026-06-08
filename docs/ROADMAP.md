@@ -17,25 +17,27 @@ Aligned with requirements document Section 8–9.
 - [x] Admin user management (`/api/admin/users`) in `auth/` module
 - [ ] Integration test with Testcontainers
 
-## Phase 2 — Dynamic form engine (Next)
+## Phase 2 — Dynamic form engine ✅ Done
 
-- [ ] `form_field_definitions` + `record_custom_fields` tables
-- [ ] Admin form-field API
-- [ ] Seed baseline fields per module
+- [x] Flyway V3–V4 (`form_field_definitions`, `record_custom_fields`)
+- [x] `formengine/` module — admin API + custom field values API
+- [x] Seed baseline fields: `members`, `staff_ministers`, `family_members`
+- [ ] Expand seed to all 14 modules (as each domain module is built)
+- [ ] React Admin UI: Form Field Manager with drag-and-drop
 
-## Phase 3 — Dynamic form engine (Week 3) ✅ In progress
+## Phase 3 — Members module ✅ Done
 
-- [x] Form field CRUD + reorder API
-- [x] Custom field save/load service
-- [x] Seed definitions for `members` module (expand to all 14)
-- [ ] Admin UI: Form Field Manager with drag-and-drop
+- [x] Flyway V5 (`members` table)
+- [x] `members/` module — CRUD, search, soft deactivate
+- [x] Integrates `CustomFieldService` (`moduleKey = members`)
+- [ ] `GET /api/members/{id}/profile` (after family/clergy modules)
 
 ## Phase 4 — Module backends (Weeks 4–8)
 
 | Week | Module | Status |
 |------|--------|--------|
-| 4 | Members + Family | Members API ✅; Family next |
-| 5 | Clergy + Baptisms | Clergy API ✅; Baptisms next |
+| 4 | Members + Family | Members ✅; Family next |
+| 5 | Clergy + Baptisms | Planned |
 | 6 | Staff ministers, office, workers, emergency | Planned |
 | 7 | Sunday school, Abnet, Parish council | Planned |
 | 8 | Contributions, Transfers, Deceased | Planned |
