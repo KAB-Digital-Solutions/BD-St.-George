@@ -321,11 +321,36 @@ Example — create a priest, then assign to a member:
 }
 ```
 
-Then update member: `"clergyId": 1`. Profile view `GET /api/members/1/profile` returns member + spiritual father + household.
+Then update member: `"clergyId": 1`. Profile view `GET /api/members/1/profile` returns member + spiritual father + household + baptisms.
+
+## Baptisms (`baptisms/`)
+
+Child baptism records linked to a member (parent/guardian) and officiating clergy.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/baptisms?memberId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/baptisms/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/baptisms` | Admin, Recorder |
+| PUT | `/api/baptisms/{id}` | Admin, Recorder |
+| DELETE | `/api/baptisms/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/baptisms` | Admin, Recorder, Viewer |
+
+Example — record a baptism for member ID 1:
+
+```json
+{
+  "memberId": 1,
+  "childName": "Yonas Kebede",
+  "baptismDate": "2024-01-15",
+  "officiatingClergyId": 1,
+  "churchName": "St. George Orthodox Church"
+}
+```
 
 ## What comes next
 
-- Baptisms module — child baptism records linked to members and clergy
+- Staff ministers module — church staff linked to members
 - Remaining church modules — one at a time
 
 Technical details: see the `docs/` folder.

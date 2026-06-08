@@ -1,5 +1,6 @@
 package com.example.backend.members.dto;
 
+import com.example.backend.baptisms.dto.BaptismResponse;
 import com.example.backend.clergy.dto.ClergyResponse;
 import com.example.backend.family.dto.FamilyMemberResponse;
 import lombok.Builder;
@@ -13,4 +14,5 @@ public class MemberProfileResponse {
     private MemberResponse member;
     private ClergyResponse spiritualFather;
     private List<FamilyMemberResponse> familyMembers;
+    private List<BaptismResponse> baptisms;
 }

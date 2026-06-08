@@ -45,12 +45,18 @@ Aligned with requirements document Section 8–9.
 - [x] Member `clergyId` validation on create/update
 - [x] `GET /api/members/{id}/profile` — member + spiritual father + household
 
-## Phase 6 — Module backends (Weeks 4–8)
+## Phase 6 — Baptisms module ✅ Done
+
+- [x] Flyway V9 (`baptisms` table, FKs to `members` and `clergy`)
+- [x] `baptisms/` module — CRUD, filter by `memberId`, soft deactivate
+- [x] `GET /api/members/{id}/baptisms` and included in member profile
+
+## Phase 7 — Module backends (Weeks 4–8)
 
 | Week | Module | Status |
 |------|--------|--------|
 | 4 | Members + Family | ✅ Done |
-| 5 | Clergy + Baptisms | Clergy ✅; Baptisms next |
+| 5 | Clergy + Baptisms | ✅ Done |
 | 6 | Staff ministers, office, workers, emergency | Planned |
 | 7 | Sunday school, Abnet, Parish council | Planned |
 | 8 | Contributions, Transfers, Deceased | Planned |

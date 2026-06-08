@@ -1,5 +1,6 @@
 package com.example.backend.members.service;
 
+import com.example.backend.baptisms.service.BaptismService;
 import com.example.backend.clergy.service.ClergyService;
 import com.example.backend.family.service.FamilyMemberService;
 import com.example.backend.formengine.domain.ModuleKeys;
@@ -26,6 +27,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final ClergyService clergyService;
     private final FamilyMemberService familyMemberService;
+    private final BaptismService baptismService;
     private final CustomFieldService customFieldService;
 
     @Transactional
@@ -82,6 +84,7 @@ public class MemberService {
                 .member(member)
                 .spiritualFather(spiritualFather)
                 .familyMembers(familyMemberService.listForMember(id))
+                .baptisms(baptismService.listForMember(id))
                 .build();
     }
 

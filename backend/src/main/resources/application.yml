@@ -33,4 +33,5 @@ logging:
     com.example.backend.members: INFO
     com.example.backend.family: INFO
     com.example.backend.clergy: INFO
+    com.example.backend.baptisms: INFO
     com.example.backend.shared: INFO
