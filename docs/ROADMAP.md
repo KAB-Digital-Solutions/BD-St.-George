@@ -58,13 +58,25 @@ Aligned with requirements document Section 8–9.
 - [x] Custom fields via form engine (`spiritual_education`, salary fields, etc.)
 - [x] `GET /api/members/{id}/staff-ministers`
 
-## Phase 8 — Module backends (Weeks 4–8)
+## Phase 8 — Office staff module ✅ Done
+
+- [x] Flyway V11 (`office_staff` table, FKs to `members` and `clergy`)
+- [x] `officestaff/` module — CRUD, filter by `memberId`/`clergyId`, soft deactivate
+- [x] `GET /api/members/{id}/office-staff`
+
+## Phase 9 — Workers module ✅ Done
+
+- [x] Flyway V12 (`workers` table)
+- [x] `workers/` module — CRUD, search, soft deactivate
+- [x] `validateExists()` for upcoming emergency contacts FK
+
+## Phase 10 — Module backends (Weeks 4–8)
 
 | Week | Module | Status |
 |------|--------|--------|
 | 4 | Members + Family | ✅ Done |
 | 5 | Clergy + Baptisms | ✅ Done |
-| 6 | Staff ministers, office, workers, emergency | Staff ministers ✅; Office next |
+| 6 | Staff ministers, office, workers, emergency | Staff ministers + Office + Workers ✅; Emergency next |
 | 7 | Sunday school, Abnet, Parish council | Planned |
 | 8 | Contributions, Transfers, Deceased | Planned |
 

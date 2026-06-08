@@ -380,9 +380,57 @@ Example — create staff minister linked to member ID 1:
 
 Seeded custom fields: `spiritual_education`, `theological_education`, `modern_education`, `salary_diocese`, `salary_parish`.
 
+## Office staff (`officestaff/`)
+
+Parish office employees with optional links to a member and clergy supervisor.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/office-staff?memberId=&clergyId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/office-staff/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/office-staff` | Admin, Recorder |
+| PUT | `/api/office-staff/{id}` | Admin, Recorder |
+| DELETE | `/api/office-staff/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/office-staff` | Admin, Recorder, Viewer |
+
+Example — create office secretary linked to member and clergy:
+
+```json
+{
+  "fullName": "Hanna Bekele",
+  "position": "Secretary",
+  "phone": "0911334455",
+  "memberId": 1,
+  "clergyId": 1
+}
+```
+
+## Workers (`workers/`)
+
+Church workers for maintenance, grounds, and support roles. Emergency contacts will link to workers next.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/workers?q=&page=0&size=20` | Admin, Recorder, Viewer |
+| GET | `/api/workers/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/workers` | Admin, Recorder |
+| PUT | `/api/workers/{id}` | Admin, Recorder |
+| DELETE | `/api/workers/{id}` | Admin, Recorder (soft deactivate) |
+
+Example — create a grounds worker:
+
+```json
+{
+  "fullName": "Tadesse Alemu",
+  "phone": "0911445566",
+  "jobRole": "Groundskeeper",
+  "gender": "Male"
+}
+```
+
 ## What comes next
 
-- Office staff module — parish office employees
+- Emergency contacts module — contacts linked to workers and office staff
 - Remaining church modules — one at a time
 
 Technical details: see the `docs/` folder.
