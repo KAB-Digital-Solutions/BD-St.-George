@@ -348,9 +348,41 @@ Example — record a baptism for member ID 1:
 }
 ```
 
+## Staff ministers (`staffministers/`)
+
+Church staff with optional member link. Education and salary fields use `customFields` (seeded in form engine).
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/staff-ministers?memberId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/staff-ministers/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/staff-ministers` | Admin, Recorder |
+| PUT | `/api/staff-ministers/{id}` | Admin, Recorder |
+| DELETE | `/api/staff-ministers/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/staff-ministers` | Admin, Recorder, Viewer |
+
+Example — create staff minister linked to member ID 1:
+
+```json
+{
+  "fullName": "Deacon Mikael",
+  "gender": "Male",
+  "phone": "0911223344",
+  "hireDate": "2020-03-01",
+  "employmentType": "Full-time",
+  "memberId": 1,
+  "customFields": {
+    "spiritual_education": "Sunday School Teacher",
+    "salary_parish": "5000"
+  }
+}
+```
+
+Seeded custom fields: `spiritual_education`, `theological_education`, `modern_education`, `salary_diocese`, `salary_parish`.
+
 ## What comes next
 
-- Staff ministers module — church staff linked to members
+- Office staff module — parish office employees
 - Remaining church modules — one at a time
 
 Technical details: see the `docs/` folder.

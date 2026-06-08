@@ -51,13 +51,20 @@ Aligned with requirements document Section 8–9.
 - [x] `baptisms/` module — CRUD, filter by `memberId`, soft deactivate
 - [x] `GET /api/members/{id}/baptisms` and included in member profile
 
-## Phase 7 — Module backends (Weeks 4–8)
+## Phase 7 — Staff ministers module ✅ Done
+
+- [x] Flyway V10 (`staff_ministers` table, optional FK to `members`)
+- [x] `staffministers/` module — CRUD, filter by `memberId`, soft deactivate
+- [x] Custom fields via form engine (`spiritual_education`, salary fields, etc.)
+- [x] `GET /api/members/{id}/staff-ministers`
+
+## Phase 8 — Module backends (Weeks 4–8)
 
 | Week | Module | Status |
 |------|--------|--------|
 | 4 | Members + Family | ✅ Done |
 | 5 | Clergy + Baptisms | ✅ Done |
-| 6 | Staff ministers, office, workers, emergency | Planned |
+| 6 | Staff ministers, office, workers, emergency | Staff ministers ✅; Office next |
 | 7 | Sunday school, Abnet, Parish council | Planned |
 | 8 | Contributions, Transfers, Deceased | Planned |
 

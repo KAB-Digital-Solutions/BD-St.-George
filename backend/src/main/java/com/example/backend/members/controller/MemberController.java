@@ -2,6 +2,8 @@ package com.example.backend.members.controller;
 
 import com.example.backend.baptisms.dto.BaptismResponse;
 import com.example.backend.baptisms.service.BaptismService;
+import com.example.backend.staffministers.dto.StaffMinisterResponse;
+import com.example.backend.staffministers.service.StaffMinisterService;
 import com.example.backend.family.dto.FamilyMemberResponse;
 import com.example.backend.family.service.FamilyMemberService;
 import com.example.backend.members.dto.MemberProfileResponse;
@@ -28,6 +30,7 @@ public class MemberController {
     private final MemberService memberService;
     private final FamilyMemberService familyMemberService;
     private final BaptismService baptismService;
+    private final StaffMinisterService staffMinisterService;
 
     @Operation(summary = "Create member", description = "Saves core fields and customFields in one request")
     @PostMapping
@@ -66,6 +69,12 @@ public class MemberController {
     @GetMapping("/{id}/baptisms")
     public List<BaptismResponse> baptisms(@PathVariable Long id) {
         return baptismService.listForMember(id);
+    }
+
+    @Operation(summary = "List staff minister records for member", description = "Active staff roles linked to this member")
+    @GetMapping("/{id}/staff-ministers")
+    public List<StaffMinisterResponse> staffMinisters(@PathVariable Long id) {
+        return staffMinisterService.listForMember(id);
     }
 
     @PutMapping("/{id}")
