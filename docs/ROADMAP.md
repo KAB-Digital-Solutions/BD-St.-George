@@ -30,14 +30,27 @@ Aligned with requirements document Section 8–9.
 - [x] Flyway V5 (`members` table)
 - [x] `members/` module — CRUD, search, soft deactivate
 - [x] Integrates `CustomFieldService` (`moduleKey = members`)
-- [ ] `GET /api/members/{id}/profile` (after family/clergy modules)
 
-## Phase 4 — Module backends (Weeks 4–8)
+## Phase 4 — Family module ✅ Done
+
+- [x] Flyway V6 (`family_members` table, FK to `members`)
+- [x] `family/` module — CRUD, filter by `memberId`, soft deactivate
+- [x] `GET /api/members/{id}/family-members` household view
+- [x] `relationship_type` via form engine (`moduleKey = family_members`)
+## Phase 5 — Clergy module ✅ Done
+
+- [x] Flyway V7 (`clergy` table)
+- [x] Flyway V8 (`members.clergy_id` FK to `clergy`)
+- [x] `clergy/` module — CRUD, search, soft deactivate
+- [x] Member `clergyId` validation on create/update
+- [x] `GET /api/members/{id}/profile` — member + spiritual father + household
+
+## Phase 6 — Module backends (Weeks 4–8)
 
 | Week | Module | Status |
 |------|--------|--------|
-| 4 | Members + Family | Members ✅; Family next |
-| 5 | Clergy + Baptisms | Planned |
+| 4 | Members + Family | ✅ Done |
+| 5 | Clergy + Baptisms | Clergy ✅; Baptisms next |
 | 6 | Staff ministers, office, workers, emergency | Planned |
 | 7 | Sunday school, Abnet, Parish council | Planned |
 | 8 | Contributions, Transfers, Deceased | Planned |

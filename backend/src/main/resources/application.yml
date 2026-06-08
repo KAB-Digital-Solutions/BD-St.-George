@@ -31,4 +31,6 @@ logging:
     com.example.backend.auth: INFO
     com.example.backend.formengine: INFO
     com.example.backend.members: INFO
+    com.example.backend.family: INFO
+    com.example.backend.clergy: INFO
     com.example.backend.shared: INFO

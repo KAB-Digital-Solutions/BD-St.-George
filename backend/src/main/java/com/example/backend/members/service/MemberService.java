@@ -1,8 +1,11 @@
 package com.example.backend.members.service;
 
+import com.example.backend.clergy.service.ClergyService;
+import com.example.backend.family.service.FamilyMemberService;
 import com.example.backend.formengine.domain.ModuleKeys;
 import com.example.backend.formengine.service.CustomFieldService;
 import com.example.backend.members.domain.MemberStatus;
+import com.example.backend.members.dto.MemberProfileResponse;
 import com.example.backend.members.dto.MemberRequest;
 import com.example.backend.members.dto.MemberResponse;
 import com.example.backend.members.entity.Member;
@@ -21,11 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final ClergyService clergyService;
+    private final FamilyMemberService familyMemberService;
     private final CustomFieldService customFieldService;
 
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'RECORDER')")
     public MemberResponse create(MemberRequest request) {
+        clergyService.validateExists(request.getClergyId());
         Member member = mapToEntity(new Member(), request);
         if (member.getRegisteredDate() == null) {
             member.setRegisteredDate(java.time.LocalDate.now());
@@ -42,6 +48,7 @@ public class MemberService {
     public MemberResponse update(Long id, MemberRequest request) {
         Member existing = memberRepository.findById(id)
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Member not found"));
+        clergyService.validateExists(request.getClergyId());
         Member updated = mapToEntity(existing, request);
         updated = memberRepository.save(updated);
         if (request.getCustomFields() != null) {
@@ -62,6 +69,20 @@ public class MemberService {
     @PreAuthorize("hasAnyRole('ADMIN', 'RECORDER', 'VIEWER')")
     public Page<MemberResponse> list(String q, Pageable pageable) {
         return memberRepository.search(q, pageable).map(this::toResponse);
+    }
+
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAnyRole('ADMIN', 'RECORDER', 'VIEWER')")
+    public MemberProfileResponse getProfile(Long id) {
+        MemberResponse member = get(id);
+        var spiritualFather = member.getClergyId() != null
+                ? clergyService.get(member.getClergyId())
+                : null;
+        return MemberProfileResponse.builder()
+                .member(member)
+                .spiritualFather(spiritualFather)
+                .familyMembers(familyMemberService.listForMember(id))
+                .build();
     }
 
     @Transactional

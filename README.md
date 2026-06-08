@@ -252,6 +252,7 @@ Central member records with fixed columns plus dynamic `customFields` in one req
 | POST | `/api/members` | Admin, Recorder |
 | PUT | `/api/members/{id}` | Admin, Recorder |
 | DELETE | `/api/members/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/profile` | Admin, Recorder, Viewer |
 
 Example — create a member with custom fields (after Authorize):
 
@@ -267,11 +268,64 @@ Example — create a member with custom fields (after Authorize):
 }
 ```
 
-Search `q` matches name, phone, kebele, or exact member ID. `clergy_id` is stored but not validated until the clergy module exists.
+Search `q` matches name, phone, kebele, or exact member ID. Set `clergyId` to link a spiritual father (must exist in clergy registry).
+
+## Family members (`family/`)
+
+Relatives linked to a member household. Relationship (spouse, child, etc.) is stored in `customFields.relationship_type`.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/family-members?memberId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/family-members/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/family-members` | Admin, Recorder |
+| PUT | `/api/family-members/{id}` | Admin, Recorder |
+| DELETE | `/api/family-members/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/family-members` | Admin, Recorder, Viewer |
+
+Example — add a spouse to member ID 1:
+
+```json
+{
+  "memberId": 1,
+  "fullName": "Sara Kebede",
+  "age": 32,
+  "customFields": {
+    "relationship_type": "ሚስት"
+  }
+}
+```
+
+Valid `relationship_type` values (seeded dropdown): `ባል`, `ሚስት`, `ልጅ`, `አባት`, `እናት`, `ሌላ`.
+
+## Clergy registry (`clergy/`)
+
+Priests, deacons, and spiritual fathers. Members reference clergy via `clergyId`.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/clergy?q=&page=0&size=20` | Admin, Recorder, Viewer |
+| GET | `/api/clergy/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/clergy` | Admin, Recorder |
+| PUT | `/api/clergy/{id}` | Admin, Recorder |
+| DELETE | `/api/clergy/{id}` | Admin, Recorder (soft deactivate) |
+
+Example — create a priest, then assign to a member:
+
+```json
+{
+  "fullName": "Fr. Daniel Tesfaye",
+  "roleType": "ካህን",
+  "phone": "0911000001",
+  "address": "Bahir Dar"
+}
+```
+
+Then update member: `"clergyId": 1`. Profile view `GET /api/members/1/profile` returns member + spiritual father + household.
 
 ## What comes next
 
-- Family members module — links people to a member household
-- Clergy and remaining church modules — one at a time
+- Baptisms module — child baptism records linked to members and clergy
+- Remaining church modules — one at a time
 
 Technical details: see the `docs/` folder.

@@ -1,9 +1,14 @@
 package com.example.backend.members.controller;
 
+import com.example.backend.family.dto.FamilyMemberResponse;
+import com.example.backend.family.service.FamilyMemberService;
+import com.example.backend.members.dto.MemberProfileResponse;
 import com.example.backend.members.dto.MemberRequest;
 import com.example.backend.members.dto.MemberResponse;
 import com.example.backend.members.service.MemberService;
 import com.example.backend.shared.dto.PageResponse;
+
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final FamilyMemberService familyMemberService;
 
     @Operation(summary = "Create member", description = "Saves core fields and customFields in one request")
     @PostMapping
@@ -39,6 +45,18 @@ public class MemberController {
     @GetMapping("/{id}")
     public MemberResponse get(@PathVariable Long id) {
         return memberService.get(id);
+    }
+
+    @Operation(summary = "Member profile", description = "Member with spiritual father and household")
+    @GetMapping("/{id}/profile")
+    public MemberProfileResponse profile(@PathVariable Long id) {
+        return memberService.getProfile(id);
+    }
+
+    @Operation(summary = "List household for member", description = "Active family members linked to this member")
+    @GetMapping("/{id}/family-members")
+    public List<FamilyMemberResponse> familyMembers(@PathVariable Long id) {
+        return familyMemberService.listForMember(id);
     }
 
     @PutMapping("/{id}")
