@@ -1,9 +1,13 @@
 package com.example.backend.officestaff.controller;
 
+import com.example.backend.emergencycontacts.dto.EmergencyContactResponse;
+import com.example.backend.emergencycontacts.service.EmergencyContactService;
 import com.example.backend.officestaff.dto.OfficeStaffRequest;
 import com.example.backend.officestaff.dto.OfficeStaffResponse;
 import com.example.backend.officestaff.service.OfficeStaffService;
 import com.example.backend.shared.dto.PageResponse;
+
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class OfficeStaffController {
 
     private final OfficeStaffService officeStaffService;
+    private final EmergencyContactService emergencyContactService;
 
     @Operation(summary = "Create office staff record")
     @PostMapping
@@ -41,6 +46,12 @@ public class OfficeStaffController {
     @GetMapping("/{id}")
     public OfficeStaffResponse get(@PathVariable Long id) {
         return officeStaffService.get(id);
+    }
+
+    @Operation(summary = "Emergency contacts for office staff")
+    @GetMapping("/{id}/emergency-contacts")
+    public List<EmergencyContactResponse> emergencyContacts(@PathVariable Long id) {
+        return emergencyContactService.listForOfficeStaff(id);
     }
 
     @PutMapping("/{id}")

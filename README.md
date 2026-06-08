@@ -428,9 +428,165 @@ Example — create a grounds worker:
 }
 ```
 
+## Emergency contacts (`emergencycontacts/`)
+
+Emergency contacts linked to a worker and/or office staff record. At least one link is required.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/emergency-contacts?workerId=&officeId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/emergency-contacts/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/emergency-contacts` | Admin, Recorder |
+| PUT | `/api/emergency-contacts/{id}` | Admin, Recorder |
+| DELETE | `/api/emergency-contacts/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/workers/{id}/emergency-contacts` | Admin, Recorder, Viewer |
+| GET | `/api/office-staff/{id}/emergency-contacts` | Admin, Recorder, Viewer |
+
+Example — contact for worker ID 1:
+
+```json
+{
+  "fullName": "Almaz Tadesse",
+  "phone": "0911556677",
+  "address": "Kebele 03, Bahir Dar",
+  "workerId": 1
+}
+```
+
+## Parish council (`parishcouncil/`)
+
+Parish council members with optional clergy supervisor.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/parish-council?clergyId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/parish-council/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/parish-council` | Admin, Recorder |
+| PUT | `/api/parish-council/{id}` | Admin, Recorder |
+| DELETE | `/api/parish-council/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/clergy/{id}/parish-council` | Admin, Recorder, Viewer |
+
+```json
+{
+  "fullName": "Kebede Haile",
+  "position": "Chairperson",
+  "phone": "0911667788",
+  "clergyId": 1
+}
+```
+
+## Sunday school (`sundayschool/`)
+
+Sunday school students linked to members and clergy.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/sunday-school?memberId=&clergyId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/sunday-school/reports/enrollment` | Admin, Recorder, Viewer |
+| GET | `/api/sunday-school/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/sunday-school` | Admin, Recorder |
+| PUT | `/api/sunday-school/{id}` | Admin, Recorder |
+| DELETE | `/api/sunday-school/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/sunday-school` | Admin, Recorder, Viewer |
+
+```json
+{
+  "fullName": "Kidist Abebe",
+  "phone": "0911778899",
+  "birthDate": "2015-06-10",
+  "gender": "Female",
+  "memberId": 1,
+  "clergyId": 1
+}
+```
+
+## Abnet school (`abnetschool/`)
+
+Same pattern as Sunday school for Abnet program students.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/abnet-school?memberId=&clergyId=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/abnet-school/reports/enrollment` | Admin, Recorder, Viewer |
+| GET | `/api/abnet-school/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/abnet-school` | Admin, Recorder |
+| PUT | `/api/abnet-school/{id}` | Admin, Recorder |
+| DELETE | `/api/abnet-school/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/abnet-school` | Admin, Recorder, Viewer |
+
+## Contributions (`contributions/`)
+
+Member payments with unique receipt numbers.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/contributions?memberId=&ethiopianYear=&q=` | Admin, Recorder, Viewer |
+| GET | `/api/contributions/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/contributions` | Admin, Recorder |
+| PUT | `/api/contributions/{id}` | Admin, Recorder |
+| DELETE | `/api/contributions/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/contributions` | Admin, Recorder, Viewer |
+
+```json
+{
+  "memberId": 1,
+  "amount": 500.00,
+  "receiptNo": "RCP-2026-001",
+  "ethiopianYear": 2018,
+  "paymentDate": "2026-06-08"
+}
+```
+
+## Transfers (`transfers/`)
+
+Records a member transfer and sets their status to `TRANSFERRED`.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/transfers?memberId=&q=` | Admin, Recorder, Viewer |
+| POST | `/api/transfers` | Admin, Recorder |
+| PUT | `/api/transfers/{id}` | Admin, Recorder |
+| DELETE | `/api/transfers/{id}` | Admin, Recorder (soft deactivate) |
+| GET | `/api/members/{id}/transfers` | Admin, Recorder, Viewer |
+
+```json
+{
+  "memberId": 2,
+  "reason": "Job relocation",
+  "region": "Amhara",
+  "diocese": "Bahir Dar",
+  "woreda": "Felege Genet",
+  "transferDate": "2026-06-08"
+}
+```
+
+## Deceased (`deceased/`)
+
+Immutable archive — **POST and read only** (no update/delete). Sets member status to `DECEASED`.
+
+| Method | Path | Who |
+|--------|------|-----|
+| GET | `/api/deceased?q=` | Admin, Recorder, Viewer |
+| GET | `/api/deceased/{id}` | Admin, Recorder, Viewer |
+| POST | `/api/deceased` | Admin, Recorder |
+| GET | `/api/members/{id}/deceased` | Admin, Recorder, Viewer |
+
+```json
+{
+  "memberId": 3,
+  "deathDate": "2026-05-01",
+  "gender": "Male"
+}
+```
+
+## Backend modules complete
+
+All **14 Access tables** now have REST APIs. Health check reports `phase: 12-all-modules`.
+
 ## What comes next
 
-- Emergency contacts module — contacts linked to workers and office staff
-- Remaining church modules — one at a time
+- React frontend wiring to these APIs
+- Access `.accdb` data migration runner
+- Audit log and production hardening
 
 Technical details: see the `docs/` folder.

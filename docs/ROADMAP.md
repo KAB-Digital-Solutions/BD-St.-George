@@ -70,15 +70,36 @@ Aligned with requirements document Section 8–9.
 - [x] `workers/` module — CRUD, search, soft deactivate
 - [x] `validateExists()` for upcoming emergency contacts FK
 
-## Phase 10 — Module backends (Weeks 4–8)
+## Phase 10 — Emergency contacts module ✅ Done
+
+- [x] Flyway V13 (`emergency_contacts` table, FKs to `workers` and `office_staff`)
+- [x] `emergencycontacts/` module — CRUD, filter by `workerId`/`officeId`, soft deactivate
+- [x] `GET /api/workers/{id}/emergency-contacts` and `GET /api/office-staff/{id}/emergency-contacts`
+
+## Phase 11 — Parish council, Sunday school, Abnet school ✅ Done
+
+- [x] Flyway V14 (`parish_council`), V15 (`sunday_school`), V16 (`abnet_school`)
+- [x] `parishcouncil/` — CRUD, filter by `clergyId`, `GET /api/clergy/{id}/parish-council`
+- [x] `sundayschool/` — CRUD, enrollment report, `GET /api/members/{id}/sunday-school`
+- [x] `abnetschool/` — CRUD, enrollment report, `GET /api/members/{id}/abnet-school`
+
+## Phase 12 — Contributions, Transfers, Deceased ✅ Done
+
+- [x] Flyway V17 (`contributions`), V18 (`transfers`), V19 (`deceased`)
+- [x] `contributions/` — unique `receiptNo`, filter by `ethiopianYear`
+- [x] `transfers/` — sets member `status = TRANSFERRED` on create
+- [x] `deceased/` — immutable POST-only archive, sets member `status = DECEASED`
+- [x] **All 14 domain module APIs complete**
+
+## Phase 13 — Module backends (Weeks 4–8) ✅ Complete
 
 | Week | Module | Status |
 |------|--------|--------|
 | 4 | Members + Family | ✅ Done |
 | 5 | Clergy + Baptisms | ✅ Done |
-| 6 | Staff ministers, office, workers, emergency | Staff ministers + Office + Workers ✅; Emergency next |
-| 7 | Sunday school, Abnet, Parish council | Planned |
-| 8 | Contributions, Transfers, Deceased | Planned |
+| 6 | Staff ministers, office, workers, emergency | ✅ Done |
+| 7 | Sunday school, Abnet, Parish council | ✅ Done |
+| 8 | Contributions, Transfers, Deceased | ✅ Done |
 
 ## Phase 5 — React frontend (Weeks 6–9)
 

@@ -3,7 +3,11 @@ package com.example.backend.clergy.controller;
 import com.example.backend.clergy.dto.ClergyRequest;
 import com.example.backend.clergy.dto.ClergyResponse;
 import com.example.backend.clergy.service.ClergyService;
+import com.example.backend.parishcouncil.dto.ParishCouncilResponse;
+import com.example.backend.parishcouncil.service.ParishCouncilService;
 import com.example.backend.shared.dto.PageResponse;
+
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClergyController {
 
     private final ClergyService clergyService;
+    private final ParishCouncilService parishCouncilService;
 
     @Operation(summary = "Create clergy record")
     @PostMapping
@@ -39,6 +44,12 @@ public class ClergyController {
     @GetMapping("/{id}")
     public ClergyResponse get(@PathVariable Long id) {
         return clergyService.get(id);
+    }
+
+    @Operation(summary = "Parish council members for clergy supervisor")
+    @GetMapping("/{id}/parish-council")
+    public List<ParishCouncilResponse> parishCouncil(@PathVariable Long id) {
+        return parishCouncilService.listForClergy(id);
     }
 
     @PutMapping("/{id}")

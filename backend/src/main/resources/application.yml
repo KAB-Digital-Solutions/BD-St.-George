@@ -37,4 +37,11 @@ logging:
     com.example.backend.staffministers: INFO
     com.example.backend.officestaff: INFO
     com.example.backend.workers: INFO
+    com.example.backend.emergencycontacts: INFO
+    com.example.backend.parishcouncil: INFO
+    com.example.backend.sundayschool: INFO
+    com.example.backend.abnetschool: INFO
+    com.example.backend.contributions: INFO
+    com.example.backend.transfers: INFO
+    com.example.backend.deceased: INFO
     com.example.backend.shared: INFO

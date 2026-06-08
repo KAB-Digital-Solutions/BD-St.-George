@@ -2,8 +2,18 @@ package com.example.backend.members.controller;
 
 import com.example.backend.baptisms.dto.BaptismResponse;
 import com.example.backend.baptisms.service.BaptismService;
+import com.example.backend.abnetschool.dto.AbnetSchoolResponse;
+import com.example.backend.abnetschool.service.AbnetSchoolService;
+import com.example.backend.contributions.dto.ContributionResponse;
+import com.example.backend.contributions.service.ContributionService;
+import com.example.backend.deceased.dto.DeceasedResponse;
+import com.example.backend.deceased.service.DeceasedService;
+import com.example.backend.transfers.dto.TransferResponse;
+import com.example.backend.transfers.service.TransferService;
 import com.example.backend.officestaff.dto.OfficeStaffResponse;
 import com.example.backend.officestaff.service.OfficeStaffService;
+import com.example.backend.sundayschool.dto.SundaySchoolResponse;
+import com.example.backend.sundayschool.service.SundaySchoolService;
 import com.example.backend.staffministers.dto.StaffMinisterResponse;
 import com.example.backend.staffministers.service.StaffMinisterService;
 import com.example.backend.family.dto.FamilyMemberResponse;
@@ -34,6 +44,11 @@ public class MemberController {
     private final BaptismService baptismService;
     private final StaffMinisterService staffMinisterService;
     private final OfficeStaffService officeStaffService;
+    private final SundaySchoolService sundaySchoolService;
+    private final AbnetSchoolService abnetSchoolService;
+    private final ContributionService contributionService;
+    private final TransferService transferService;
+    private final DeceasedService deceasedService;
 
     @Operation(summary = "Create member", description = "Saves core fields and customFields in one request")
     @PostMapping
@@ -84,6 +99,36 @@ public class MemberController {
     @GetMapping("/{id}/office-staff")
     public List<OfficeStaffResponse> officeStaff(@PathVariable Long id) {
         return officeStaffService.listForMember(id);
+    }
+
+    @Operation(summary = "Sunday school enrollments for member")
+    @GetMapping("/{id}/sunday-school")
+    public List<SundaySchoolResponse> sundaySchool(@PathVariable Long id) {
+        return sundaySchoolService.listForMember(id);
+    }
+
+    @Operation(summary = "Abnet school enrollments for member")
+    @GetMapping("/{id}/abnet-school")
+    public List<AbnetSchoolResponse> abnetSchool(@PathVariable Long id) {
+        return abnetSchoolService.listForMember(id);
+    }
+
+    @Operation(summary = "Contributions for member")
+    @GetMapping("/{id}/contributions")
+    public List<ContributionResponse> contributions(@PathVariable Long id) {
+        return contributionService.listForMember(id);
+    }
+
+    @Operation(summary = "Transfer records for member")
+    @GetMapping("/{id}/transfers")
+    public List<TransferResponse> transfers(@PathVariable Long id) {
+        return transferService.listForMember(id);
+    }
+
+    @Operation(summary = "Deceased archive for member", description = "404 if member has no deceased record")
+    @GetMapping("/{id}/deceased")
+    public DeceasedResponse deceased(@PathVariable Long id) {
+        return deceasedService.getByMemberId(id);
     }
 
     @PutMapping("/{id}")

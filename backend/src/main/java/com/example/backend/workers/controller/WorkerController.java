@@ -1,9 +1,13 @@
 package com.example.backend.workers.controller;
 
+import com.example.backend.emergencycontacts.dto.EmergencyContactResponse;
+import com.example.backend.emergencycontacts.service.EmergencyContactService;
 import com.example.backend.shared.dto.PageResponse;
 import com.example.backend.workers.dto.WorkerRequest;
 import com.example.backend.workers.dto.WorkerResponse;
 import com.example.backend.workers.service.WorkerService;
+
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class WorkerController {
 
     private final WorkerService workerService;
+    private final EmergencyContactService emergencyContactService;
 
     @Operation(summary = "Create worker record")
     @PostMapping
@@ -39,6 +44,12 @@ public class WorkerController {
     @GetMapping("/{id}")
     public WorkerResponse get(@PathVariable Long id) {
         return workerService.get(id);
+    }
+
+    @Operation(summary = "Emergency contacts for worker")
+    @GetMapping("/{id}/emergency-contacts")
+    public List<EmergencyContactResponse> emergencyContacts(@PathVariable Long id) {
+        return emergencyContactService.listForWorker(id);
     }
 
     @PutMapping("/{id}")

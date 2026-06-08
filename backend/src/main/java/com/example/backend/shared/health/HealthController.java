@@ -12,6 +12,6 @@ public class HealthController {
     @SecurityRequirements
     @GetMapping("/api/health")
     public Map<String, String> health() {
-        return Map.of("status", "ok", "phase", "9-workers");
+        return Map.of("status", "ok", "phase", "12-all-modules");
     }
 }
